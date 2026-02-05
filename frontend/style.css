@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* APP */
+
+.app {
+    background: #fff;
+    width: 95%;
+    max-width: 500px;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #5a189a;
+    margin-bottom: 15px;
+}
+
+/* FORM */
+
+.form {
+    display: grid;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-size: 15px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #5a189a;
+    color: white;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: #3c096c;
+}
+
+/* LISTA */
+
+ul {
+    list-style: none;
+    margin-top: 20px;
+    display: grid;
+    gap: 15px;
+}
+
+/* CARD DE TAREA */
+
+li {
+    background: #f6f4ff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0,0,0,.1);
+    display: grid;
+    gap: 8px;
+}
+
+/* TITULO */
+
+li span {
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* META INFO */
+
+.meta {
+    font-size: 13px;
+    color: #555;
+    display: grid;
+    gap: 4px;
+}
+
+/* COMPLETADA */
+
+li.completa span {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* BOTONES */
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.acciones button {
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.eliminar {
+    background: #e63946;
+}
+
+.eliminar:hover {
+    background: #c1121f;
+}
+
+/* ERROR */
+
+#mensajeError {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:480px){
+    .app {
+        padding: 18px;
+    }
+}

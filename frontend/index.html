@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Gestor de Tareas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+<h2>Login</h2>
+<input id="usuario" placeholder="Usuario">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Entrar</button>
+
+<hr>
+
+<h1>📝 Gestor de Tareas</h1>
+
+<div class="form">
+<input id="tareaInput" placeholder="Escribe tarea">
+<input id="asignadoInput" placeholder="Asignado a">
+<button id="agregarBtn">Agregar</button>
+</div>
+
+<p id="mensajeError"></p>
+
+<ul id="listaTareas"></ul>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
