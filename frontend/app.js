@@ -1,5 +1,7 @@
 const API = "http://localhost:3000";
 
+const loginBox = document.getElementById("loginBox");
+const appBox = document.getElementById("appBox");
 const lista = document.getElementById("listaTareas");
 const input = document.getElementById("tareaInput");
 const asignado = document.getElementById("asignadoInput");
@@ -21,8 +23,10 @@ async function login() {
     const data = await res.json();
     localStorage.setItem("token", data.token);
 
-    alert("Login correcto");
+    loginBox.style.display = "none";
+    appBox.style.display = "block";
     cargarTareas();
+
 }
 
 
@@ -160,4 +164,5 @@ async function completar(id,estado){
 
     cargarTareas();
 }
+
 
