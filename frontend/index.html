@@ -21,32 +21,29 @@
   <button onclick="login()">Entrar</button>
   <button onclick="registrar()">Registrar</button>
 
-  <p id="mensajeError"></p>
+  <p id="loginError"></p>
 
 </div>
-
-
-
 
 
 <div id="appBox" style="display:none">
 
 <button onclick="logout()" class="logout">Cerrar sesión</button>
-
 <h1>📝 Gestor de Tareas</h1>
 
 <div class="form">
-
-<input id="tareaInput" placeholder="Escribe tarea">
-<input id="asignadoInput" placeholder="Asignado a">
-<button id="agregarBtn">Agregar</button>
+  <input id="tareaInput" placeholder="Escribe tarea">
+  <input id="asignadoInput" placeholder="Asignado a">
+  <button id="agregarBtn">Agregar</button>
 </div>
 
-<p id="mensajeErrorApp"></p>
+<!-- 👇 ESTE ES EL QUE FALTABA -->
+<p id="taskError"></p>
 
 <ul id="listaTareas"></ul>
 
 </div>
+
 
 <script src="app.js"></script>
 </body>

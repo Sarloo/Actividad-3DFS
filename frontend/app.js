@@ -6,9 +6,22 @@ const lista = document.getElementById("listaTareas");
 const input = document.getElementById("tareaInput");
 const asignado = document.getElementById("asignadoInput");
 const boton = document.getElementById("agregarBtn");
-const error = document.getElementById("mensajeError");
-const errorApp = document.getElementById("mensajeErrorApp");
+const loginError = document.getElementById("loginError");
+const taskError = document.getElementById("taskError");
 
+
+// ================= PROTECCION DE SESION =================
+
+const token = localStorage.getItem("token");
+
+if (!token) {
+    loginBox.style.display = "block";
+    appBox.style.display = "none";
+} else {
+    loginBox.style.display = "none";
+    appBox.style.display = "block";
+    cargarTareas();
+}
 
 // ================= LOGIN =================
 
@@ -17,11 +30,14 @@ async function login() {
     const password = document.getElementById("password").value.trim();
 
     // LIMPIAR MENSAJE
-    error.textContent = "";
+    loginError.textContent = "";
+
 
     // VALIDACION CAMPOS VACIOS
     if (!usuario || !password) {
-        error.textContent = "⚠️ Debes ingresar usuario y contraseña";
+        loginError.style.color = "red";
+        loginError.textContent = "⚠️ Debes ingresar usuario y contraseña";
+;
         return;
     }
 
@@ -36,7 +52,8 @@ async function login() {
 
         // LOGIN INCORRECTO
         if (!res.ok) {
-            error.textContent = data.mensaje || "Error al iniciar sesión";
+            loginError.style.color = "red";
+            loginError.textContent = data.mensaje || "Error al iniciar sesión";
             return;
         }
 
@@ -48,7 +65,7 @@ async function login() {
         cargarTareas();
 
     } catch (err) {
-        error.textContent = "Error de conexión con el servidor";
+        loginError.textContent = "Error de conexión con el servidor";
         console.log(err);
     }
 }
@@ -109,43 +126,57 @@ function renderizar(tareas){
 
 // ================= AGREGAR =================
 
-boton.addEventListener("click", async ()=>{
+boton.addEventListener("click", async () => {
 
-    if(input.value.trim()==="") return;
+    taskError.textContent = "";
 
-    errorApp.textContent = "";
+
+    const titulo = input.value.trim();
+    if (!titulo) {
+        taskError.style.color = "red";
+        taskError.textContent = "⚠️ Debes escribir una tarea";
+        return;
+}
+
+    const asignadoA = asignado.value.trim();
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch(API + "/tareas",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
-            Authorization: token
-        },
-        body:JSON.stringify({
-            titulo: input.value,
-            descripcion:"tarea creada desde frontend",
-            asignadoA: asignado.value,
-            fechaAsignacion: new Date()
-        })
-    });
+    try {
+        const res = await fetch(API + "/tareas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                titulo,
+                descripcion: "tarea creada desde frontend",
+                asignadoA,
+                fechaAsignacion: new Date()
+            })
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    //  ERROR (usuario no existe)
-    if (!res.ok) {
-        errorApp.style.color = "red";
-        errorApp.textContent = data.mensaje;
-        return;
+        // ERROR DEL BACKEND
+        if (!res.ok) {
+            taskError.textContent = data.mensaje || "Error al agregar tarea";
+            return;
+}
+
+
+        // ÉXITO
+        input.value = "";
+        asignado.value = "";
+        cargarTareas();
+
+    } catch (err) {
+        error.textContent = "Error al conectar con el servidor";
+        console.log(err);
     }
-
-    //  OK
-    input.value="";
-    asignado.value="";
-    errorApp.textContent="";
-    cargarTareas();
 });
+
 
 
 
@@ -209,11 +240,12 @@ async function registrar() {
     const usuario = document.getElementById("usuario").value.trim();
     const password = document.getElementById("password").value.trim();
 
-    error.textContent = "";
+    loginError.textContent = "";
 
     // VALIDACION
     if (!usuario || !password) {
-        error.textContent = "⚠️ Debes ingresar usuario y contraseña";
+        loginError.style.color = "red";
+        loginError.textContent = "⚠️ Debes ingresar usuario y contraseña";
         return;
     }
 
@@ -227,12 +259,12 @@ async function registrar() {
         const data = await res.json();
 
         if (!res.ok) {
-            error.textContent = data.mensaje || "Error al registrar usuario";
+            loginError.textContent = data.mensaje || "Error al registrar usuario";
             return;
         }
 
-        error.style.color = "green";
-        error.textContent = "✅ Usuario registrado correctamente. Ahora inicia sesión.";
+        loginError.style.color = "green";
+        loginError.textContent = "✅ Usuario registrado correctamente. Ahora inicia sesión.";
 
     } catch (err) {
         error.textContent = "Error al conectar con el servidor";
@@ -241,15 +273,18 @@ async function registrar() {
 }
 
 function logout() {
-
-    // borrar token
     localStorage.removeItem("token");
 
-    // limpiar interfaz
+    // limpiar UI
     lista.innerHTML = "";
-    errorApp.textContent = "";
+    taskError.textContent = "";
+    loginError.textContent = "";
 
-    // cambiar vistas
+    // limpiar inputs
+    input.value = "";
+    asignado.value = "";
+
+    // cambiar vista
     appBox.style.display = "none";
     loginBox.style.display = "block";
 }

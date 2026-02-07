@@ -18,5 +18,13 @@
   {
     "usuario": "A",
     "password": "$2b$10$I5taG18y1ebxGAPry4kepOV7eGAdKbSWt8voa0018q4TlHsFbZ2Y6"
+  },
+  {
+    "usuario": "nkjnjnjnkjk",
+    "password": "$2b$10$e3ZkOg9j3n4WL1Kt.4w6d..NnGfwRJQ.UwmDgORyabtF67/CtGGJi"
+  },
+  {
+    "usuario": "Hugo",
+    "password": "$2b$10$eCsQf1vh4XMwU/5HezSDzuOFyDru3C.lORaJiUzliJW8xTNLfYwXe"
   }
 ]
