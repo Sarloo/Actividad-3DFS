@@ -6,5 +6,17 @@
   {
     "usuario": "juan",
     "password": "$2b$10$3b.82PJO8n/E4J5.H/WTs.OODiETEXikNnJa09IYTP/XFbCUCZ1nm"
+  },
+  {
+    "usuario": "Sara",
+    "password": "$2b$10$7JzAxnsDxe1Yepmke4raTOOdI.tId5dv31UPMb1wrH76YWJTMCsj."
+  },
+  {
+    "usuario": "pedro",
+    "password": "$2b$10$hYAQE9xzbc6yOjFkZ4.1MOdHLVDn60kfIw.tAeCwmI1OlvHCU77OO"
+  },
+  {
+    "usuario": "A",
+    "password": "$2b$10$I5taG18y1ebxGAPry4kepOV7eGAdKbSWt8voa0018q4TlHsFbZ2Y6"
   }
 ]

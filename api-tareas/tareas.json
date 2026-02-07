@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": 1770428337226,
+    "titulo": "asdasasddas",
+    "descripcion": "tarea creada desde frontend",
+    "completada": false,
+    "creadoPor": "A",
+    "asignadoA": "asda",
+    "fechaAsignacion": "2026-02-07T01:38:57.219Z",
+    "fechaCreacion": "2026-02-07T01:38:57.226Z"
+  },
+  {
+    "id": 1770428360523,
+    "titulo": "qdqqd",
+    "descripcion": "tarea creada desde frontend",
+    "completada": true,
+    "creadoPor": "carlos",
+    "asignadoA": "A",
+    "fechaAsignacion": "2026-02-07T01:39:20.518Z",
+    "fechaCreacion": "2026-02-07T01:39:20.523Z"
+  }
+]

@@ -11,23 +11,46 @@ const error = document.getElementById("mensajeError");
 // ================= LOGIN =================
 
 async function login() {
-    const usuario = document.getElementById("usuario").value;
-    const password = document.getElementById("password").value;
+    const usuario = document.getElementById("usuario").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    const res = await fetch(API + "/login", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({usuario,password})
-    });
+    // LIMPIAR MENSAJE
+    error.textContent = "";
 
-    const data = await res.json();
-    localStorage.setItem("token", data.token);
+    // VALIDACION CAMPOS VACIOS
+    if (!usuario || !password) {
+        error.textContent = "⚠️ Debes ingresar usuario y contraseña";
+        return;
+    }
 
-    loginBox.style.display = "none";
-    appBox.style.display = "block";
-    cargarTareas();
+    try {
+        const res = await fetch(API + "/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ usuario, password })
+        });
 
+        const data = await res.json();
+
+        // LOGIN INCORRECTO
+        if (!res.ok) {
+            error.textContent = data.mensaje || "Error al iniciar sesión";
+            return;
+        }
+
+        // LOGIN CORRECTO
+        localStorage.setItem("token", data.token);
+
+        loginBox.style.display = "none";
+        appBox.style.display = "block";
+        cargarTareas();
+
+    } catch (err) {
+        error.textContent = "Error de conexión con el servidor";
+        console.log(err);
+    }
 }
+
 
 
 // ================= CARGAR =================
@@ -165,4 +188,39 @@ async function completar(id,estado){
     cargarTareas();
 }
 
+async function registrar() {
+
+    const usuario = document.getElementById("usuario").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    error.textContent = "";
+
+    // VALIDACION
+    if (!usuario || !password) {
+        error.textContent = "⚠️ Debes ingresar usuario y contraseña";
+        return;
+    }
+
+    try {
+        const res = await fetch(API + "/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ usuario, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            error.textContent = data.mensaje || "Error al registrar usuario";
+            return;
+        }
+
+        error.style.color = "green";
+        error.textContent = "✅ Usuario registrado correctamente. Ahora inicia sesión.";
+
+    } catch (err) {
+        error.textContent = "Error al conectar con el servidor";
+        console.log(err);
+    }
+}
 

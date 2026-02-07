@@ -9,7 +9,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-
 const SECRET = "clave_super_secreta";
 
 const TAREAS_FILE = "./tareas.json";
@@ -19,8 +18,12 @@ const USERS_FILE = "./usuarios.json";
 // ================= FUNCIONES FS =================
 
 async function leerArchivo(ruta) {
-    const data = await fs.readFile(ruta, "utf8");
-    return JSON.parse(data || "[]");
+    try {
+        const data = await fs.readFile(ruta, "utf8");
+        return JSON.parse(data || "[]");
+    } catch {
+        return [];
+    }
 }
 
 async function escribirArchivo(ruta, data) {
@@ -31,15 +34,35 @@ async function escribirArchivo(ruta, data) {
 // ================= MIDDLEWARE AUTH =================
 
 function auth(req, res, next) {
-    const token = req.headers["authorization"];
+    const authHeader = req.headers["authorization"];
 
-    if (!token) return res.status(401).json({ mensaje: "Token requerido" });
+    if (!authHeader)
+        return res.status(401).json({ mensaje: "Token requerido" });
+
+    const token = authHeader.split(" ")[1] || authHeader;
 
     jwt.verify(token, SECRET, (err, user) => {
-        if (err) return res.status(403).json({ mensaje: "Token inválido" });
+        if (err)
+            return res.status(403).json({ mensaje: "Token inválido" });
+
         req.user = user;
         next();
     });
+}
+
+
+// ================= MIDDLEWARE VALIDACION =================
+
+function validarTarea(req, res, next) {
+    const { titulo, descripcion } = req.body;
+
+    if (!titulo || !descripcion) {
+        return res.status(400).json({
+            mensaje: "Título y descripción son obligatorios"
+        });
+    }
+
+    next();
 }
 
 
@@ -55,7 +78,8 @@ app.post("/register", async (req, res, next) => {
         const users = await leerArchivo(USERS_FILE);
 
         const existe = users.find(u => u.usuario === usuario);
-        if (existe) return res.status(400).json({ mensaje: "Usuario ya existe" });
+        if (existe)
+            return res.status(400).json({ mensaje: "Usuario ya existe" });
 
         const hash = await bcrypt.hash(password, 10);
 
@@ -63,7 +87,7 @@ app.post("/register", async (req, res, next) => {
 
         await escribirArchivo(USERS_FILE, users);
 
-        res.json({ mensaje: "Usuario registrado" });
+        res.json({ mensaje: "Usuario registrado correctamente" });
 
     } catch (err) {
         next(err);
@@ -80,10 +104,12 @@ app.post("/login", async (req, res, next) => {
         const users = await leerArchivo(USERS_FILE);
 
         const user = users.find(u => u.usuario === usuario);
-        if (!user) return res.status(404).json({ mensaje: "Usuario no existe" });
+        if (!user)
+            return res.status(404).json({ mensaje: "Usuario no encontrado" });
 
         const valido = await bcrypt.compare(password, user.password);
-        if (!valido) return res.status(401).json({ mensaje: "Password incorrecto" });
+        if (!valido)
+            return res.status(401).json({ mensaje: "Contraseña incorrecta" });
 
         const token = jwt.sign({ usuario }, SECRET, { expiresIn: "1h" });
 
@@ -101,40 +127,44 @@ app.post("/login", async (req, res, next) => {
 app.get("/tareas", auth, async (req, res, next) => {
     try {
         const tareas = await leerArchivo(TAREAS_FILE);
-        res.json(tareas);
+
+        const usuario = req.user.usuario;
+
+        // TAREAS QUE CREO O QUE LE ASIGNARON
+        const visibles = tareas.filter(t =>
+            t.creadoPor === usuario || t.asignadoA === usuario
+        );
+
+        res.json(visibles);
+
     } catch (err) {
         next(err);
     }
 });
 
 
+
+
 // POST
-app.post("/tareas", auth, async (req, res, next) => {
+app.post("/tareas", auth, validarTarea, async (req, res, next) => {
     try {
-        const { titulo, descripcion } = req.body;
-
-        if (!titulo || !descripcion)
-            return res.status(400).json({ mensaje: "Campos requeridos" });
-
         const tareas = await leerArchivo(TAREAS_FILE);
 
         const nueva = {
-        id: Date.now(),
-        titulo,
-        descripcion,
-        completada:false,
-        creadoPor: req.user.usuario,
-        asignadoA: req.body.asignadoA || "",
-        fechaAsignacion: req.body.fechaAsignacion || "",
-        fechaCreacion: new Date()
-    };
-
-
+            id: Date.now(),
+            titulo: req.body.titulo,
+            descripcion: req.body.descripcion,
+            completada: false,
+            creadoPor: req.user.usuario,
+            asignadoA: req.body.asignadoA || "",
+            fechaAsignacion: req.body.fechaAsignacion || "",
+            fechaCreacion: new Date()
+        };
 
         tareas.push(nueva);
         await escribirArchivo(TAREAS_FILE, tareas);
 
-        res.json(nueva);
+        res.status(201).json(nueva);
 
     } catch (err) {
         next(err);
@@ -149,7 +179,8 @@ app.put("/tareas/:id", auth, async (req, res, next) => {
         const tareas = await leerArchivo(TAREAS_FILE);
 
         const index = tareas.findIndex(t => t.id === id);
-        if (index === -1) return res.status(404).json({ mensaje: "No existe" });
+        if (index === -1)
+            return res.status(404).json({ mensaje: "Tarea no encontrada" });
 
         tareas[index] = { ...tareas[index], ...req.body };
 
@@ -167,13 +198,16 @@ app.put("/tareas/:id", auth, async (req, res, next) => {
 app.delete("/tareas/:id", auth, async (req, res, next) => {
     try {
         const id = Number(req.params.id);
+        const tareas = await leerArchivo(TAREAS_FILE);
 
-        let tareas = await leerArchivo(TAREAS_FILE);
-        tareas = tareas.filter(t => t.id !== id);
+        const existe = tareas.find(t => t.id === id);
+        if (!existe)
+            return res.status(404).json({ mensaje: "Tarea no encontrada" });
 
-        await escribirArchivo(TAREAS_FILE, tareas);
+        const nuevas = tareas.filter(t => t.id !== id);
+        await escribirArchivo(TAREAS_FILE, nuevas);
 
-        res.json({ mensaje: "Eliminada" });
+        res.json({ mensaje: "Tarea eliminada correctamente" });
 
     } catch (err) {
         next(err);
@@ -181,16 +215,23 @@ app.delete("/tareas/:id", auth, async (req, res, next) => {
 });
 
 
-// ================= ERROR MIDDLEWARE =================
+// ================= 404 =================
+
+app.use((req, res) => {
+    res.status(404).json({ mensaje: "Ruta no encontrada" });
+});
+
+
+// ================= ERROR GLOBAL =================
 
 app.use((err, req, res, next) => {
-    console.log(err);
-    res.status(500).json({ mensaje: "Error del servidor" });
+    console.error("ERROR:", err);
+    res.status(500).json({ mensaje: "Error interno del servidor" });
 });
 
 
 // ================= SERVER =================
 
 app.listen(3000, () => {
-    console.log("Servidor corriendo en puerto 3000");
+    console.log("Servidor corriendo en http://localhost:3000");
 });
