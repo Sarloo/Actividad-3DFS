@@ -1,0 +1,140 @@
+/* Global reset: quitar márgenes/padding por defecto y usar box-sizing
+   para que el padding se incluya en el ancho/alto de los elementos. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos del <body>: tipografía, fondo en gradiente y centrado
+   del contenido mediante Flexbox. */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor principal (.app): tarjeta blanca con padding,
+   bordes redondeados y sombra para elevación. */
+.app {
+    background: #fff;
+    width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+/* Título principal: centrado y con color distintivo. */
+h1 {
+    text-align: center;
+    color: #5a189a;
+    margin-bottom: 20px;
+}
+
+/* Formulario: input + botón en línea usando Flexbox. */
+.form {
+    display: flex;
+    gap: 10px;
+}
+
+/* Campo de texto: ocupa el espacio disponible, padding y borde sutil. */
+input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-size: 16px;
+}
+
+/* Botones: estilo base compartido (padding, color, transición). */
+button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #5a189a;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Estado hover para botones: fondo más oscuro. */
+button:hover {
+    background: #3c096c;
+}
+
+/* Mensajes de error: texto en rojo y centrado. */
+#mensajeError {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Lista de tareas: quitar viñetas y separar del formulario. */
+ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+/* Elemento de tarea (li): fondo suave, padding y uso de Flexbox
+   para colocar el texto a la izquierda y las acciones a la derecha. */
+li {
+    background: #f3f0ff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;   
+    gap: 10px;
+}
+ li span {
+    font-size: 16px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
+}
+
+
+/* Estado completado: aplica tachado y color gris al texto dentro
+   del <li> cuando tiene la clase `completa`. */
+li.completa span {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* Botones de acciones (editar/completar): pequeño margen y fondo.
+   El botón de eliminar tendrá su propio color. */
+.acciones button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+
+/* Botón de eliminar: color rojo para indicar acción destructiva. */
+.acciones .eliminar {
+    background: #e63946;
+}
+
+/* Feedback visual al pasar el ratón: ligera reducción de opacidad. */
+.acciones button:hover {
+    opacity: 0.8;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;  /* Botones centrados */
+    gap: 8px;
+}
+
+/* Responsive: en pantallas pequeñas apilar input y botón verticalmente. */
+@media (max-width: 480px) {
+    .form {
+        flex-direction: column;
+    }
+}
+
+
