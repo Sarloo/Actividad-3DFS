@@ -186,74 +186,152 @@ li.completa span {
 
 
 /* ================= MOBILE ================= */
-@media (max-width: 480px) {
+@media (max-width: 932px) {
 
-    body {
-        align-items: flex-start;
-        padding: 20px 0;
-    }
-
-    .app {
-        width: 100%;
-        border-radius: 0;
-        min-height: 100vh;
-        padding: 25px 20px;
-    }
-
-    h1 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-
-    /* INPUT + BOTON AGREGAR */
-    .form {
-        gap: 12px;
-    }
-
-    input {
-        font-size: 15px;
-        padding: 12px;
-    }
-
-    button {
-        padding: 12px;
-        font-size: 15px;
-        border-radius: 999px;
-    }
-
-    /* TARJETAS */
-    li {
-        padding: 16px;
-        border-radius: 18px;
-    }
-
-    li span {
-        font-size: 17px;
-        margin-bottom: 5px;
-    }
-
-    .meta {
-        font-size: 13px;
-        text-align: center;
-    }
-
-    /* BOTONES DE TARJETA */
-    .acciones {
-        justify-content: center;
-        gap: 12px;
-    }
-
-    .acciones button {
-        padding: 8px 14px;
-        font-size: 14px;
-        border-radius: 999px;
-    }
-
-    /* BOTON CERRAR SESION */
-    .logout {
-        margin-top: 30px;
-        border-radius: 999px;
-        font-size: 15px;
-    }
-
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #a05cff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.app {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    margin: 30px 0;
+    padding: 25px 20px 30px;
+    border-radius: 22px;
+}
+
+/* TITULO */
+h1 {
+    text-align: center;
+    color: #7c3aed;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* FORMULARIO */
+.form {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 999px;
+    border: 1.5px solid #ccc;
+    font-size: 14px;
+}
+
+button {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #6d28d9;
+}
+
+/* LISTA */
+ul {
+    list-style: none;
+    display: grid;
+    gap: 18px;
+}
+
+/* TARJETA */
+li {
+    background: #e9e6ff;
+    padding: 16px;
+    border-radius: 18px;
+    display: grid;
+    gap: 10px;
+}
+
+/* TITULO TAREA */
+li span {
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* META */
+.meta {
+    font-size: 12px;
+    color: #333;
+    display: grid;
+    gap: 4px;
+    text-align: center;
+}
+
+/* BOTONES */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.acciones button {
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+/* CHECK */
+.acciones button:nth-child(2) {
+    background: #7c3aed;
+}
+
+/* ELIMINAR */
+.eliminar {
+    background: #ef4444;
+}
+
+.eliminar:hover {
+    background: #dc2626;
+}
+
+/* COMPLETADA */
+li.completa span {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* MENSAJES */
+#loginError,
+#taskError {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+/* LOGOUT */
+.logout {
+    margin-top: 25px;
+    width: 100%;
+    background: #ef4444;
+    font-weight: 600;
+}
+
+.logout:hover {
+    background: #dc2626;
+}}
