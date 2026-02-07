@@ -15,7 +15,7 @@ const TAREAS_FILE = "./tareas.json";
 const USERS_FILE = "./usuarios.json";
 
 
-// ================= FUNCIONES FS =================
+//  FUNCIONES FS 
 
 async function leerArchivo(ruta) {
     try {
@@ -36,7 +36,7 @@ async function usuarioExiste(nombreUsuario) {
 }
 
 
-// ================= MIDDLEWARE AUTH =================
+//  MIDDLEWARE AUTH 
 
 function auth(req, res, next) {
     const authHeader = req.headers["authorization"];
@@ -56,7 +56,7 @@ function auth(req, res, next) {
 }
 
 
-// ================= MIDDLEWARE VALIDACION =================
+//  MIDDLEWARE VALIDACION 
 
 function validarTarea(req, res, next) {
     const { titulo, descripcion } = req.body;
@@ -71,7 +71,7 @@ function validarTarea(req, res, next) {
 }
 
 
-// ================= REGISTER =================
+//  REGISTER =
 
 app.post("/register", async (req, res, next) => {
     try {
@@ -101,7 +101,7 @@ app.post("/register", async (req, res, next) => {
 });
 
 
-// ================= LOGIN =================
+//  LOGIN =
 
 app.post("/login", async (req, res, next) => {
     try {
@@ -127,7 +127,7 @@ app.post("/login", async (req, res, next) => {
 });
 
 
-// ================= CRUD TAREAS =================
+//  CRUD TAREAS 
 
 // GET
 app.get("/tareas", auth, async (req, res, next) => {
@@ -234,14 +234,14 @@ app.delete("/tareas/:id", auth, async (req, res, next) => {
 });
 
 
-// ================= 404 =================
+//  404 
 
 app.use((req, res) => {
     res.status(404).json({ mensaje: "Ruta no encontrada" });
 });
 
 
-// ================= ERROR GLOBAL =================
+//  ERROR GLOBAL 
 
 app.use((err, req, res, next) => {
     console.error("ERROR:", err);
@@ -249,7 +249,7 @@ app.use((err, req, res, next) => {
 });
 
 
-// ================= SERVER =================
+//  SERVER 
 
 app.listen(3000, () => {
     console.log("Servidor corriendo en http://localhost:3000");

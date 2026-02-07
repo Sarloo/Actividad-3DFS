@@ -26,5 +26,13 @@
   {
     "usuario": "Hugo",
     "password": "$2b$10$eCsQf1vh4XMwU/5HezSDzuOFyDru3C.lORaJiUzliJW8xTNLfYwXe"
+  },
+  {
+    "usuario": "Karla",
+    "password": "$2b$10$BPW6sXQIDwy6qfHUNv7maO0Qb/0/Os7YZPbCp6Jct6e7hssSvohDO"
+  },
+  {
+    "usuario": "Cesar",
+    "password": "$2b$10$4fbvBt.5H7a2VMgmudPLJ.WBvKgdlg8TqhbyhCpCIu6UeZoAla2o."
   }
 ]

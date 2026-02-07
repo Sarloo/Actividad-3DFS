@@ -10,7 +10,7 @@ const loginError = document.getElementById("loginError");
 const taskError = document.getElementById("taskError");
 
 
-// ================= PROTECCION DE SESION =================
+// PROTECCION DE SESION 
 
 const token = localStorage.getItem("token");
 
@@ -23,7 +23,7 @@ if (!token) {
     cargarTareas();
 }
 
-// ================= LOGIN =================
+//  LOGIN 
 
 async function login() {
     const usuario = document.getElementById("usuario").value.trim();
@@ -72,7 +72,7 @@ async function login() {
 
 
 
-// ================= CARGAR =================
+//  CARGAR 
 
 async function cargarTareas() {
 
@@ -88,7 +88,7 @@ async function cargarTareas() {
 }
 
 
-// ================= RENDER =================
+//  RENDER 
 
 function renderizar(tareas){
 
@@ -104,10 +104,10 @@ function renderizar(tareas){
         <span>${t.titulo}</span>
 
         <div class="meta">
-        <div>📅 Creado: ${new Date(t.fechaCreacion).toLocaleString()}</div>
-        <div>👤 Creado por: ${t.creadoPor}</div>
-        <div>➡ Asignado a: ${t.asignadoA}</div>
-        <div>🗓 Fecha asignación: ${t.fechaAsignacion ? new Date(t.fechaAsignacion).toLocaleString() : ""}</div>
+        <div>Creado: ${new Date(t.fechaCreacion).toLocaleString()}</div>
+        <div>Creado por: ${t.creadoPor}</div>
+        <div>Asignado a: ${t.asignadoA}</div>
+        <div>Fecha asignación: ${t.fechaAsignacion ? new Date(t.fechaAsignacion).toLocaleString() : ""}</div>
         </div>
 
         <div class="acciones">
@@ -124,7 +124,7 @@ function renderizar(tareas){
 
 
 
-// ================= AGREGAR =================
+//  AGREGAR 
 
 boton.addEventListener("click", async () => {
 
@@ -181,7 +181,7 @@ boton.addEventListener("click", async () => {
 
 
 
-// ================= ELIMINAR =================
+// ELIMINAR
 
 async function eliminar(id){
 
@@ -195,7 +195,7 @@ async function eliminar(id){
     cargarTareas();
 }
 
-// ================= EDITAR =================
+// EDITAR 
 
 async function editar(id,titulo){
 
@@ -217,7 +217,7 @@ async function editar(id,titulo){
 }
 
 
-// ================= COMPLETAR =================
+//  COMPLETAR 
 
 async function completar(id,estado){
 
