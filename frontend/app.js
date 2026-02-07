@@ -112,8 +112,8 @@ function renderizar(tareas){
 
         <div class="acciones">
         <button onclick="editar(${t.id},'${t.titulo}')">Editar</button>
-        <button onclick="completar(${t.id},${t.completada})">Completar</button>
-        <button class="eliminar" onclick="eliminar(${t.id})">Eliminar</button>
+        <button onclick="completar(${t.id},${t.completada})">✔</button>
+        <button class="eliminar" onclick="eliminar(${t.id})">X</button>
         </div>
         `;
 

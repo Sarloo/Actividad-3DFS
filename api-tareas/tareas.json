@@ -10,16 +10,6 @@
     "fechaCreacion": "2026-02-07T02:25:16.929Z"
   },
   {
-    "id": 1770437716456,
-    "titulo": "Lavar trastes",
-    "descripcion": "tarea creada desde frontend",
-    "completada": false,
-    "creadoPor": "carlos",
-    "asignadoA": "A",
-    "fechaAsignacion": "2026-02-07T04:15:16.450Z",
-    "fechaCreacion": "2026-02-07T04:15:16.456Z"
-  },
-  {
     "id": 1770440023545,
     "titulo": "Beber agua",
     "descripcion": "tarea creada desde frontend",
@@ -28,5 +18,15 @@
     "asignadoA": "A",
     "fechaAsignacion": "2026-02-07T04:53:43.537Z",
     "fechaCreacion": "2026-02-07T04:53:43.545Z"
+  },
+  {
+    "id": 1770441487523,
+    "titulo": "Lavar trastes",
+    "descripcion": "tarea creada desde frontend",
+    "completada": false,
+    "creadoPor": "carlos",
+    "asignadoA": "Sara",
+    "fechaAsignacion": "2026-02-07T05:18:07.516Z",
+    "fechaCreacion": "2026-02-07T05:18:07.523Z"
   }
 ]
