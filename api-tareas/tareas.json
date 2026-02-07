@@ -18,5 +18,15 @@
     "asignadoA": "A",
     "fechaAsignacion": "2026-02-07T04:15:16.450Z",
     "fechaCreacion": "2026-02-07T04:15:16.456Z"
+  },
+  {
+    "id": 1770440023545,
+    "titulo": "Beber agua",
+    "descripcion": "tarea creada desde frontend",
+    "completada": false,
+    "creadoPor": "carlos",
+    "asignadoA": "A",
+    "fechaAsignacion": "2026-02-07T04:53:43.537Z",
+    "fechaCreacion": "2026-02-07T04:53:43.545Z"
   }
 ]
