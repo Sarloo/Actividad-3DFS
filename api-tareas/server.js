@@ -30,6 +30,11 @@ async function escribirArchivo(ruta, data) {
     await fs.writeFile(ruta, JSON.stringify(data, null, 2));
 }
 
+async function usuarioExiste(nombreUsuario) {
+    const usuarios = await leerArchivo(USERS_FILE);
+    return usuarios.some(u => u.usuario === nombreUsuario);
+}
+
 
 // ================= MIDDLEWARE AUTH =================
 
@@ -148,6 +153,18 @@ app.get("/tareas", auth, async (req, res, next) => {
 // POST
 app.post("/tareas", auth, validarTarea, async (req, res, next) => {
     try {
+        const { asignadoA } = req.body;
+
+        // VALIDAR USUARIO ASIGNADO
+        if (asignadoA) {
+            const existe = await usuarioExiste(asignadoA);
+            if (!existe) {
+                return res.status(400).json({
+                    mensaje: "El usuario asignado no existe"
+                });
+            }
+        }
+
         const tareas = await leerArchivo(TAREAS_FILE);
 
         const nueva = {
@@ -156,7 +173,7 @@ app.post("/tareas", auth, validarTarea, async (req, res, next) => {
             descripcion: req.body.descripcion,
             completada: false,
             creadoPor: req.user.usuario,
-            asignadoA: req.body.asignadoA || "",
+            asignadoA: asignadoA || "",
             fechaAsignacion: req.body.fechaAsignacion || "",
             fechaCreacion: new Date()
         };
@@ -170,6 +187,7 @@ app.post("/tareas", auth, validarTarea, async (req, res, next) => {
         next(err);
     }
 });
+
 
 
 // PUT

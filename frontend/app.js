@@ -7,6 +7,8 @@ const input = document.getElementById("tareaInput");
 const asignado = document.getElementById("asignadoInput");
 const boton = document.getElementById("agregarBtn");
 const error = document.getElementById("mensajeError");
+const errorApp = document.getElementById("mensajeErrorApp");
+
 
 // ================= LOGIN =================
 
@@ -111,9 +113,11 @@ boton.addEventListener("click", async ()=>{
 
     if(input.value.trim()==="") return;
 
+    errorApp.textContent = "";
+
     const token = localStorage.getItem("token");
 
-    await fetch(API + "/tareas",{
+    const res = await fetch(API + "/tareas",{
         method:"POST",
         headers:{
             "Content-Type":"application/json",
@@ -127,11 +131,23 @@ boton.addEventListener("click", async ()=>{
         })
     });
 
+    const data = await res.json();
+
+    //  ERROR (usuario no existe)
+    if (!res.ok) {
+        errorApp.style.color = "red";
+        errorApp.textContent = data.mensaje;
+        return;
+    }
+
+    //  OK
     input.value="";
     asignado.value="";
-
+    errorApp.textContent="";
     cargarTareas();
 });
+
+
 
 
 // ================= ELIMINAR =================
@@ -224,3 +240,16 @@ async function registrar() {
     }
 }
 
+function logout() {
+
+    // borrar token
+    localStorage.removeItem("token");
+
+    // limpiar interfaz
+    lista.innerHTML = "";
+    errorApp.textContent = "";
+
+    // cambiar vistas
+    appBox.style.display = "none";
+    loginBox.style.display = "block";
+}
