@@ -134,7 +134,7 @@ boton.addEventListener("click", async () => {
     const titulo = input.value.trim();
     if (!titulo) {
         taskError.style.color = "red";
-        taskError.textContent = "⚠️ Debes escribir una tarea";
+        taskError.textContent = "Debes escribir una tarea";
         return;
 }
 

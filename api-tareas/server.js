@@ -84,6 +84,7 @@ app.post("/register", async (req, res, next) => {
 
         const existe = users.find(u => u.usuario === usuario);
         if (existe)
+            
             return res.status(400).json({ mensaje: "Usuario ya existe" });
 
         const hash = await bcrypt.hash(password, 10);

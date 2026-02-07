@@ -10,33 +10,13 @@
     "fechaCreacion": "2026-02-07T02:25:16.929Z"
   },
   {
-    "id": 1770431351864,
-    "titulo": "jhbkhbhbk",
-    "descripcion": "tarea creada desde frontend",
-    "completada": true,
-    "creadoPor": "carlos",
-    "asignadoA": "A",
-    "fechaAsignacion": "2026-02-07T02:29:11.859Z",
-    "fechaCreacion": "2026-02-07T02:29:11.864Z"
-  },
-  {
-    "id": 1770433423359,
-    "titulo": "lamamadelamdelamdela",
+    "id": 1770437716456,
+    "titulo": "Lavar trastes",
     "descripcion": "tarea creada desde frontend",
     "completada": false,
     "creadoPor": "carlos",
     "asignadoA": "A",
-    "fechaAsignacion": "2026-02-07T03:03:43.348Z",
-    "fechaCreacion": "2026-02-07T03:03:43.359Z"
-  },
-  {
-    "id": 1770434200535,
-    "titulo": "qwdqwdqwdqwdqwd",
-    "descripcion": "tarea creada desde frontend",
-    "completada": false,
-    "creadoPor": "carlos",
-    "asignadoA": "A",
-    "fechaAsignacion": "2026-02-07T03:16:40.526Z",
-    "fechaCreacion": "2026-02-07T03:16:40.535Z"
+    "fechaAsignacion": "2026-02-07T04:15:16.450Z",
+    "fechaCreacion": "2026-02-07T04:15:16.456Z"
   }
 ]
